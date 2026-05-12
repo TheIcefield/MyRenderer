@@ -1,4 +1,5 @@
 #include <my_renderer/renderer.hpp>
+
 #include "../logger.hpp"
 
 #define GLAD_GL_IMPLEMENTATION
@@ -8,7 +9,7 @@
 
 namespace my_renderer {
 
-std::expected<Renderer, std::string_view> Renderer::create(void *proc_addr) {
+std::expected<Renderer, std::string_view> Renderer::create(void* proc_addr) {
     if (!gladLoadGL(reinterpret_cast<GLADloadfunc>(proc_addr))) {
         LOG_CRITICAL("gladLoadGL() failed!");
         return std::unexpected("gladLoadGL() failed!");
@@ -21,8 +22,6 @@ std::expected<Renderer, std::string_view> Renderer::create(void *proc_addr) {
     return Renderer{};
 }
 
-void Renderer::draw() const {
-    glClear(GL_COLOR_BUFFER_BIT);
-}
+void Renderer::draw() const { glClear(GL_COLOR_BUFFER_BIT); }
 
-} // namespace my_renderer
+}  // namespace my_renderer

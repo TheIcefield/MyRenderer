@@ -9,7 +9,7 @@ struct GLFWwindow;
 namespace window_wrapper {
 
 class Window {
-public:
+   public:
     Window(std::string_view title, std::uint32_t width, std::uint32_t height);
     ~Window();
 
@@ -19,16 +19,15 @@ public:
 
     void poll_events() const;
 
-    static void *get_proc_addr();
+    static void* get_proc_addr();
 
-private:
-    GLFWwindow *m_window;
+   private:
+    GLFWwindow* m_window;
 
     std::expected<void, std::string_view> init_glfw() const;
 
     std::expected<GLFWwindow*, std::string_view> create_window(
-        std::string_view title,
-        uint32_t const width,
+        std::string_view title, uint32_t const width,
         uint32_t const height) const;
 
     void terminate_glfw() const;
@@ -36,4 +35,4 @@ private:
     static bool is_glfw_inited;
 };
 
-} // namespace window_wrapper
+}  // namespace window_wrapper

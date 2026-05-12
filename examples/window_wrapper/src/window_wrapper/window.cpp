@@ -9,22 +9,20 @@ using namespace window_wrapper;
 
 bool Window::is_glfw_inited = false;
 
-Window::Window(std::string_view title, std::uint32_t const width, std::uint32_t const height)
-{
+Window::Window(std::string_view title, std::uint32_t const width,
+               std::uint32_t const height) {
     {
         auto const res = this->init_glfw();
-        if (!res.has_value())
-        {
-            std::string const error {res.error()};
+        if (!res.has_value()) {
+            std::string const error{res.error()};
             throw std::runtime_error(error);
         }
     }
 
     {
         auto const res = this->create_window(title, width, height);
-        if (!res.has_value())
-        {
-            std::string const error {res.error()};
+        if (!res.has_value()) {
+            std::string const error{res.error()};
             throw std::runtime_error(error);
         }
 
@@ -32,8 +30,7 @@ Window::Window(std::string_view title, std::uint32_t const width, std::uint32_t 
     }
 }
 
-Window::~Window()
-{
+Window::~Window() {
     glfwDestroyWindow(this->m_window);
     this->terminate_glfw();
 }
@@ -50,8 +47,7 @@ void* Window::get_proc_addr() {
     return reinterpret_cast<void*>(glfwGetProcAddress);
 }
 
-std::expected<void, std::string_view> Window::init_glfw() const
-{
+std::expected<void, std::string_view> Window::init_glfw() const {
     if (this->is_glfw_inited) {
         return {};
     }
@@ -65,11 +61,9 @@ std::expected<void, std::string_view> Window::init_glfw() const
 }
 
 std::expected<GLFWwindow*, std::string_view> Window::create_window(
-    std::string_view title,
-    uint32_t const width,
-    uint32_t const height) const
-{
-    auto const window = glfwCreateWindow(width, height, title.data(), nullptr, nullptr);
+    std::string_view title, uint32_t const width, uint32_t const height) const {
+    auto const window =
+        glfwCreateWindow(width, height, title.data(), nullptr, nullptr);
     if (!window) {
         return std::unexpected("glfwCreateWindow() failed");
     }
@@ -78,7 +72,4 @@ std::expected<GLFWwindow*, std::string_view> Window::create_window(
     return window;
 }
 
-void Window::terminate_glfw() const
-{
-    glfwTerminate();
-}
+void Window::terminate_glfw() const { glfwTerminate(); }
