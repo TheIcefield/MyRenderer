@@ -1,1 +1,2 @@
 add_subdirectory(window_wrapper)
+add_subdirectory(window_init)
